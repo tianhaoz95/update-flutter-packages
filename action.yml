@@ -1,0 +1,10 @@
+name: 'Flutter Package Updater'
+description: 'Flutter package update automation'
+inputs:
+  flutter-project:
+    description: 'The root directory of the Flutter project of interest'
+    required: false
+    default: './'
+runs:
+  using: 'node12'
+  main: 'index.js'
