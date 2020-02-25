@@ -23,6 +23,10 @@ async function main() {
   try {
     const flutterProjectWorkspace = core.getInput('flutter-project');
     console.log(`Analyzing Flutter project @ ${flutterProjectWorkspace}...`);
+    const logLevel = core.getInput('log');
+    console.log(`Logging Level: ${logLevel}`);
+    const octoToken = core.getInput('token');
+    console.log(`GitHub authentication token: ${octoToken}`);
     const payload = JSON.stringify(github.context.payload, undefined, 2)
     console.log(`The event payload: ${payload}`);
   } catch (error) {

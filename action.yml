@@ -1,6 +1,10 @@
 name: 'Flutter Package Updater'
 description: 'Flutter package update automation'
 inputs:
+  token:
+    description: 'GitHub token used to open pull requests'
+    required: false
+    default: 'local'
   log:
     description: 'The logging level which can be quiet, info, warning or error'
     required: false
