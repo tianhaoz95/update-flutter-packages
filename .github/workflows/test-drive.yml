@@ -11,3 +11,4 @@ jobs:
         uses: ./
         with:
           flutter-project: './lab-rat'
+          log: 'info'
