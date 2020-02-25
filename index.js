@@ -2,7 +2,9 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const exec = require('@actions/exec');
 
-function updateFlutterWorkspace() async {
+function updateFlutterWorkspace(workspace) async {
+  await exec.exec('git checkout -b flutterbot/upgrade-packages');
+  await exec.exec(`cd ${workspace}`);
   await exec.exec('flutter pub upgrade');
 }
 
