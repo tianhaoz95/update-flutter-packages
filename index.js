@@ -6,7 +6,9 @@ async function updateFlutterWorkspace(workspace, branch) {
   await exec.exec(`git checkout -b ${branch}`);
   await exec.exec(`cd ${workspace}`);
   await exec.exec('flutter pub upgrade');
-  await exec.exec('git add -A && git commit -m && git push');
+  await exec.exec('git add -A');
+  await exec.exec('git commit -m \"chore(flutterbot): update flutter packages\"');
+  await exec.exec('git push');
 }
 
 async function openPullRequest(base, head, octokit) {
