@@ -3,7 +3,7 @@ on: [push]
 jobs:
   test-drive:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: test flutter package update
     steps:
       - name: checkout source
         uses: actions/checkout@v2
