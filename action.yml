@@ -4,7 +4,7 @@ inputs:
   log:
     description: 'The logging level which can be quiet, info, warning or error'
     required: false
-    default: 'info'
+    default: 'quiet'
   flutter-project:
     description: 'The root directory of the Flutter project of interest'
     required: false
