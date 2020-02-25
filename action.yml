@@ -1,6 +1,10 @@
 name: 'Flutter Package Updater'
 description: 'Flutter package update automation'
 inputs:
+  log:
+    description: 'The logging level which can be quiet, info, warning or error'
+    required: false
+    default: 'info'
   flutter-project:
     description: 'The root directory of the Flutter project of interest'
     required: false
