@@ -31,6 +31,7 @@ async function main() {
     console.log(`GitHub authentication token: ${octoToken}`);
     const payload = JSON.stringify(github.context.payload, undefined, 2)
     console.log(`The event payload: ${payload}`);
+    await updateFlutterWorkspace(flutterProjectWorkspace, 'test');
   } catch (error) {
     core.setFailed(error.message);
   }
