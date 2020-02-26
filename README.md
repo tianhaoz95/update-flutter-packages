@@ -18,6 +18,8 @@ The actions requires:
 * `actions/setup-java@v1`
 * `actions/checkout@v1`
 
+## Example
+
 ```yml
 on:
   schedule:
@@ -43,3 +45,7 @@ jobs:
           git-name: 'Tianhao Zhou'
           token: ${{ secrets.TIANHAOZ_GITHUB_TOKEN }}
 ```
+
+## Happy hacking!
+
+Spend your time on what matters, let automation take care the rest ;)
