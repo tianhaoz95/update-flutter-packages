@@ -3,13 +3,27 @@ const github = require('@actions/github');
 const exec = require('@actions/exec');
 
 async function updateFlutterWorkspace(workspace, branch) {
+  let infoOutput = '';
+  let errorOuput = '';
   await exec.exec(`git checkout -b ${branch}`);
   await exec.exec('flutter', ['pub', 'upgrade'], {
     cwd: workspace
   });
   await exec.exec('git add -A');
   await exec.exec('git commit -m \"chore(flutterbot): update flutter packages\"');
-  await exec.exec('git push');
+  await exec.exec('git', ['push'], {
+    env: {
+      GITHUB_TOKEN: 'wtf'
+    },
+    stdout: (data) => {
+      infoOutput += data.toString();
+    },
+    stderr: (data) => {
+      errorOuput += data.toString();
+    }
+  });
+  console.log(infoOutput);
+  console.log(errorOuput);
 }
 
 async function openPullRequest(base, head, octokit) {

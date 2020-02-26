@@ -17,5 +17,5 @@ jobs:
       - name: run flutter package updater
         uses: ./
         with:
-          flutter-project: './lab-rat'
+          flutter-project: './labrat'
           log: 'info'
