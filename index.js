@@ -50,7 +50,7 @@ async function shouldOpenPullRequest(context) {
   return true;
 }
 
-async function openPullRequest(context) {
+async function openUpdatePullRequest(context) {
   await context.octokit.pulls.create({
     owner: context.username,
     repo: context.project,
@@ -64,7 +64,7 @@ async function maybeOpenPullRequest(context) {
   const openPullRequest = await shouldOpenPullRequest(context);
   if (openPullRequest) {
     console.log("not opened, open pull request");
-    await openPullRequest(context);
+    await openUpdatePullRequest(context);
   } else {
     console.log("pull request already there, skip");
   }
