@@ -20,7 +20,7 @@ async function updateFlutterWorkspace(context) {
   await exec.exec('git commit -m "chore(flutterbot): update flutter packages"');
   await exec.exec(
     "git",
-    ["push", "-f", `https://github.com/${context.repo}.git`, branch],
+    ["push", "-f", `https://github.com/${context.repo}.git`, context.tempBranch],
     {
       stdout: data => {
         infoOutput += data.toString();
