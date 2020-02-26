@@ -1,5 +1,6 @@
 # Flutter Package Updater
 
+![.github/workflows/test-drive.yml](https://github.com/tianhaoz95/update-flutter-packages/workflows/.github/workflows/test-drive.yml/badge.svg?branch=master)
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/tianhaoz95/update-flutter-packages) 
 
 ## Background
