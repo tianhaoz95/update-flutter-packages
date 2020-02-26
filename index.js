@@ -14,9 +14,6 @@ async function updateFlutterWorkspace(workspace, branch) {
   await exec.exec('git add -A');
   await exec.exec('git commit -m \"chore(flutterbot): update flutter packages\"');
   await exec.exec('git', ['push' , `https://github.com/${process.env.GITHUB_REPOSITORY}.git`, branch], {
-    env: {
-      GITHUB_TOKEN: 'wtf'
-    },
     stdout: (data) => {
       infoOutput += data.toString();
     },
@@ -49,6 +46,7 @@ async function main() {
     const payload = JSON.stringify(github.context.payload, undefined, 2)
     console.log(`The event payload: ${payload}`);
     await updateFlutterWorkspace(flutterProjectWorkspace, 'test');
+    await openPullRequest(base, head, octokit);
   } catch (error) {
     core.setFailed(error.message);
   }
