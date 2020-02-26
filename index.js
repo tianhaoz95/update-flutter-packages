@@ -35,7 +35,7 @@ async function updateFlutterWorkspace(context) {
 }
 
 async function shouldOpenPullRequest(context) {
-  const pullRequestList = await octokit.pulls.list({
+  const pullRequestList = await context.octokit.pulls.list({
     owner: context.username,
     repo: context.project
   });
@@ -51,7 +51,7 @@ async function shouldOpenPullRequest(context) {
 }
 
 async function openPullRequest(context) {
-  await octokit.pulls.create({
+  await context.octokit.pulls.create({
     owner: context.username,
     repo: context.project,
     title: pullRequestTitle.pullRequestTitle,
