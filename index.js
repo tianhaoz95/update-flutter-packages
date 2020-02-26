@@ -25,13 +25,26 @@ async function updateFlutterWorkspace(workspace, branch) {
   console.log(errorOuput);
 }
 
+async function shouldOpenPullRequest(base, head, octokit) {
+  const pullRequestList = await octokit.pulls.list({
+    owner: 'tianhaoz95',
+    repo: 'update-flutter-packages',
+  });
+  for (const pullRequest of pullRequestList) {
+    if (pullRequest.title === 'test pull request' && pullRequest.state === 'open') {
+      return false;
+    }
+  }
+  return true;
+}
+
 async function openPullRequest(base, head, octokit) {
   await octokit.pulls.create({
     owner: 'tianhaoz95',
     repo: 'update-flutter-packages',
     title: 'test pull request',
     head,
-    base
+    base,
   });
 }
 
@@ -47,7 +60,13 @@ async function main() {
     console.log(`The event payload: ${payload}`);
     await updateFlutterWorkspace(flutterProjectWorkspace, 'test');
     const octokit = new github.GitHub(octoToken);
-    await openPullRequest('master', 'test', octokit);
+    const openPullRequest = await shouldOpenPullRequest('master', 'test', octokit);
+    if (openPullRequest) {
+      console.log('not opened, open pull request');
+      await openPullRequest('master', 'test', octokit);
+    } else {
+      console.log('pull request already there, skip');
+    }
   } catch (error) {
     core.setFailed(error.message);
   }
