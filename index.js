@@ -9,6 +9,8 @@ async function updateFlutterWorkspace(workspace, branch) {
   await exec.exec('flutter', ['pub', 'upgrade'], {
     cwd: workspace
   });
+  await exec.exec('git', ['config', '--global', 'user.email', 'tianhaoz@umich.edu']);
+  await exec.exec('git', ['config', '--global', 'user.name', 'Tianhao Zhou']);
   await exec.exec('git add -A');
   await exec.exec('git commit -m \"chore(flutterbot): update flutter packages\"');
   await exec.exec('git', ['push'], {
