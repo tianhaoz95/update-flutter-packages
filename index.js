@@ -54,7 +54,7 @@ async function openUpdatePullRequest(context) {
   await context.octokit.pulls.create({
     owner: context.username,
     repo: context.project,
-    title: pullRequestTitle.pullRequestTitle,
+    title: context.pullRequestTitle,
     head: context.tempBranch,
     base: context.targetBranch
   });
