@@ -30,7 +30,7 @@ async function shouldOpenPullRequest(base, head, octokit) {
     owner: 'tianhaoz95',
     repo: 'update-flutter-packages',
   });
-  for (const pullRequest of pullRequestList) {
+  for (const pullRequest of pullRequestList.data) {
     if (pullRequest.title === 'test pull request' && pullRequest.state === 'open') {
       return false;
     }
