@@ -1,72 +1,81 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
-const exec = require('@actions/exec');
+const core = require("@actions/core");
+const github = require("@actions/github");
+const exec = require("@actions/exec");
+const initContext = require("./lib/init");
 
-async function updateFlutterWorkspace(workspace, branch) {
-  let infoOutput = '';
-  let errorOuput = '';
-  await exec.exec(`git checkout -b ${branch}`);
-  await exec.exec('flutter', ['pub', 'upgrade'], {
+async function updateFlutterWorkspace(context) {
+  let infoOutput = "";
+  let errorOuput = "";
+  await exec.exec(`git checkout -b ${context.tempBranch}`);
+  await exec.exec("flutter", ["pub", "upgrade"], {
     cwd: workspace
   });
-  await exec.exec('git', ['config', '--global', 'user.email', 'tianhaoz@umich.edu']);
-  await exec.exec('git', ['config', '--global', 'user.name', 'Tianhao Zhou']);
-  await exec.exec('git add -A');
-  await exec.exec('git commit -m \"chore(flutterbot): update flutter packages\"');
-  await exec.exec('git', ['push', '-f' , `https://github.com/${process.env.GITHUB_REPOSITORY}.git`, branch], {
-    stdout: (data) => {
-      infoOutput += data.toString();
-    },
-    stderr: (data) => {
-      errorOuput += data.toString();
+  await exec.exec("git", [
+    "config",
+    "--global",
+    "user.email",
+    context.gitEmail
+  ]);
+  await exec.exec("git", ["config", "--global", "user.name", context.gitUser]);
+  await exec.exec("git add -A");
+  await exec.exec('git commit -m "chore(flutterbot): update flutter packages"');
+  await exec.exec(
+    "git",
+    ["push", "-f", `https://github.com/${context.repo}.git`, branch],
+    {
+      stdout: data => {
+        infoOutput += data.toString();
+      },
+      stderr: data => {
+        errorOuput += data.toString();
+      }
     }
-  });
+  );
   console.log(infoOutput);
   console.log(errorOuput);
 }
 
-async function shouldOpenPullRequest(base, head, octokit) {
+async function shouldOpenPullRequest(context) {
   const pullRequestList = await octokit.pulls.list({
-    owner: 'tianhaoz95',
-    repo: 'update-flutter-packages',
+    owner: context.username,
+    repo: context.project
   });
   for (const pullRequest of pullRequestList.data) {
-    if (pullRequest.title === 'test pull request' && pullRequest.state === 'open') {
+    if (
+      pullRequest.title === context.pullRequestTitle &&
+      pullRequest.state === 'open'
+    ) {
       return false;
     }
   }
   return true;
 }
 
-async function openPullRequest(base, head, octokit) {
+async function openPullRequest(context) {
   await octokit.pulls.create({
-    owner: 'tianhaoz95',
-    repo: 'update-flutter-packages',
-    title: 'test pull request',
-    head,
-    base,
+    owner: context.username,
+    repo: context.project,
+    title: pullRequestTitle.pullRequestTitle,
+    head: context.tempBranch,
+    base: context.targetBranch
   });
+}
+
+async function maybeOpenPullRequest(context) {
+  const openPullRequest = await shouldOpenPullRequest(context);
+  if (openPullRequest) {
+    console.log("not opened, open pull request");
+    await openPullRequest(context);
+  } else {
+    console.log("pull request already there, skip");
+  }
 }
 
 async function main() {
   try {
-    const flutterProjectWorkspace = core.getInput('flutter-project');
-    console.log(`Analyzing Flutter project @ ${flutterProjectWorkspace}...`);
-    const logLevel = core.getInput('log');
-    console.log(`Logging Level: ${logLevel}`);
-    const octoToken = core.getInput('token');
-    console.log(`GitHub authentication token: ${octoToken}`);
-    const payload = JSON.stringify(github.context.payload, undefined, 2)
-    console.log(`The event payload: ${payload}`);
-    await updateFlutterWorkspace(flutterProjectWorkspace, 'test');
-    const octokit = new github.GitHub(octoToken);
-    const openPullRequest = await shouldOpenPullRequest('master', 'test', octokit);
-    if (openPullRequest) {
-      console.log('not opened, open pull request');
-      await openPullRequest('master', 'test', octokit);
-    } else {
-      console.log('pull request already there, skip');
-    }
+    const context = initContext();
+    await updateFlutterWorkspace(context);
+    await maybeOpenPullRequest(context);
   } catch (error) {
     core.setFailed(error.message);
   }
