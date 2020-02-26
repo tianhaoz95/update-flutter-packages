@@ -46,7 +46,8 @@ async function main() {
     const payload = JSON.stringify(github.context.payload, undefined, 2)
     console.log(`The event payload: ${payload}`);
     await updateFlutterWorkspace(flutterProjectWorkspace, 'test');
-    await openPullRequest(base, head, octokit);
+    const octokit = new github.GitHub(octoToken);
+    await openPullRequest('master', 'test', octokit);
   } catch (error) {
     core.setFailed(error.message);
   }
