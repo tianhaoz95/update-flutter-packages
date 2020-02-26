@@ -18,5 +18,7 @@ jobs:
         uses: ./
         with:
           flutter-project: './labrat'
+          git-email: 'tianhaoz@umich.edu'
+          git-name: 'Tianhao Zhou'
           token: ${{ secrets.TIANHAOZ_GITHUB_TOKEN }}
           log: 'info'
