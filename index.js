@@ -27,9 +27,9 @@ async function updateFlutterWorkspace(workspace, branch) {
 
 async function openPullRequest(base, head, octokit) {
   await octokit.pulls.create({
-    owner,
-    repo,
-    title,
+    owner: 'tianhaoz95',
+    repo: 'update-flutter-packages',
+    title: 'test pull request',
     head,
     base
   });
