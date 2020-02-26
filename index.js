@@ -13,7 +13,7 @@ async function updateFlutterWorkspace(workspace, branch) {
   await exec.exec('git', ['config', '--global', 'user.name', 'Tianhao Zhou']);
   await exec.exec('git add -A');
   await exec.exec('git commit -m \"chore(flutterbot): update flutter packages\"');
-  await exec.exec('git', ['push' , 'https://github.com/${GITHUB_REPOSITORY}.git', branch], {
+  await exec.exec('git', ['push' , `https://github.com/${process.env.GITHUB_REPOSITORY}.git`, branch], {
     env: {
       GITHUB_TOKEN: 'wtf'
     },
