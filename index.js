@@ -7,7 +7,7 @@ async function updateFlutterWorkspace(context) {
   let errorOuput = "";
   await exec.exec(`git checkout -b ${context.tempBranch}`);
   await exec.exec("flutter", ["pub", "upgrade"], {
-    cwd: workspace
+    cwd: context.flutterProjectWorkspace
   });
   await exec.exec("git", [
     "config",
