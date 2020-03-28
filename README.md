@@ -27,7 +27,7 @@ on:
 jobs:
   test:
     name: example Flutter package updater
-    runs-on: ubtuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
