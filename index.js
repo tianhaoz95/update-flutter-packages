@@ -7,7 +7,8 @@ async function main() {
   try {
     const context = initContext();
     await updateFlutterWorkspace(context);
-    await maybeOpenPullRequest(context);
+    if(context.needPr)
+      await maybeOpenPullRequest(context);
   } catch (error) {
     core.setFailed(error.message);
   }
