@@ -1,6 +1,6 @@
 # Flutter Package Updater
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![.github/workflows/test-drive.yml](https://github.com/tianhaoz95/update-flutter-packages/workflows/.github/workflows/test-drive.yml/badge.svg?branch=master)
@@ -62,6 +62,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="http://tianhaoz.com"><img src="https://avatars3.githubusercontent.com/u/16887772?v=4" width="100px;" alt=""/><br /><sub><b>Tianhao Zhou</b></sub></a><br /><a href="https://github.com/tianhaoz95/update-flutter-packages/commits?author=tianhaoz95" title="Code">💻</a></td>
+    <td align="center"><a href="http://telegram.me/ilteoood"><img src="https://avatars0.githubusercontent.com/u/6383527?v=4" width="100px;" alt=""/><br /><sub><b>Matteo Pietro Dazzi</b></sub></a><br /><a href="https://github.com/tianhaoz95/update-flutter-packages/commits?author=ilteoood" title="Code">💻</a></td>
   </tr>
 </table>
 
