@@ -2,11 +2,12 @@
   "name": "update-flutter-packages",
   "version": "1.0.0",
   "description": "Flutter package update automation",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "fix": "prettier --write index.js lib/*.js",
-    "lint": "prettier --check index.js lib/*.js"
+    "lint": "prettier --check index.js lib/*.js",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

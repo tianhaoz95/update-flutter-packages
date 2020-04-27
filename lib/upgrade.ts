@@ -1,5 +1,5 @@
 import { exec } from "@actions/exec"
-import { ApplicationContext } from "./model/applicationContext.ts";
+import { ApplicationContext } from "./model/applicationContext";
 
 async function updateFlutterWorkspace(context: ApplicationContext) {
   let infoOutput = "";

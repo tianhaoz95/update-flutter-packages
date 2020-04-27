@@ -1,4 +1,4 @@
-import { ApplicationContext } from "./model/applicationContext.ts";
+import { ApplicationContext } from "./model/applicationContext";
 
 async function shouldOpenPullRequest(context: ApplicationContext) {
   const pullRequestList = await context.octokit.pulls.list({
