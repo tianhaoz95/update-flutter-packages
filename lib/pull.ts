@@ -1,6 +1,6 @@
-const exec = require("@actions/exec");
+import { ApplicationContext } from "./model/applicationContext.ts";
 
-async function shouldOpenPullRequest(context) {
+async function shouldOpenPullRequest(context: ApplicationContext) {
   const pullRequestList = await context.octokit.pulls.list({
     owner: context.username,
     repo: context.project
@@ -16,7 +16,7 @@ async function shouldOpenPullRequest(context) {
   return true;
 }
 
-async function openUpdatePullRequest(context) {
+async function openUpdatePullRequest(context: ApplicationContext) {
   await context.octokit.pulls.create({
     owner: context.username,
     repo: context.project,
@@ -26,7 +26,7 @@ async function openUpdatePullRequest(context) {
   });
 }
 
-async function maybeOpenPullRequest(context) {
+async function maybeOpenPullRequest(context: ApplicationContext) {
   const openPullRequest = await shouldOpenPullRequest(context);
   if (openPullRequest) {
     console.log("not opened, open pull request");
@@ -36,4 +36,4 @@ async function maybeOpenPullRequest(context) {
   }
 }
 
-module.exports = maybeOpenPullRequest;
+export { maybeOpenPullRequest } 
