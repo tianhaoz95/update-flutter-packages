@@ -41,6 +41,9 @@ async function updateYamlFile(context: ApplicationContext) {
       }
 
       let latestVersion = await getLatestPackage(dependency)
+      if(!latestVersion) {
+        return
+      }
       if (dependencyVersion != latestVersion) {
         dependencyMap.set(dependencyKey, latestVersion.version)
       }
