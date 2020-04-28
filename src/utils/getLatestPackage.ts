@@ -1,13 +1,13 @@
 import { PubApiModel } from "../model/pubApiModel"
 import { Scalar, Pair } from "yaml/types"
 import axios from "axios"
+import semverDiff from "semver-diff"
 
 /**
  * Returns the Latest version that the package can 
  * automatically update to following semver.
- * //TODO actually do that.
  */
-async function getLatestPackage(dependency: Pair): Promise<PubApiModel.Version> {
+async function getLatestPackage(dependency: Pair): Promise<PubApiModel.Version | undefined> {
     const dependencyKey: Scalar = dependency.key
     const dependencyValue: Scalar = dependency.value
 
@@ -19,7 +19,15 @@ async function getLatestPackage(dependency: Pair): Promise<PubApiModel.Version> 
     const response = await axios.get(packageEndpoint)
     const responseData: PubApiModel.RootObject = response.data
     let versions = responseData.versions
-    let latestVersion = versions[versions.length - 1]
+    let latestVersion: PubApiModel.Version | undefined = undefined
+    versions.reverse().every((element, index) => {
+        let diff = semverDiff(dependencyVersion, element.version)
+        if (diff == 'patch') {
+            latestVersion = element
+            return false
+        }
+        return true
+    })
     return latestVersion
 }
 
